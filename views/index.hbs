@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список пользователей</title>
+    <meta charset="utf-8" />
+    
+</head>
+<body >
+    <h1>Список пользователей</h1>
+    <br>
+    <p><a href="/create">Добавить пользователя</a></p>
+    <br>
+    <table>
+        <tr><th>Name</th><th>Age</th><th></th></tr>
+        {{#each users}}
+            <tr >
+                <td>{{this.name}}</td>
+                <td>{{this.age}}</td>
+                <td>
+                    <a href="/edit/{{this.id}}">Edit</a>|
+                    <form action="delete/{{this.id}}" method="POST" style="display:inline;">
+                        <input class="delete" type="submit" value="Delete" />
+                    </form>
+                </td>
+            </tr>
+        {{/each}}
+    </table>
+</body>
+<style>
+    a{
+      color: rgb(36, 192, 36);
+    }
+    *{
+      background-color: #212121;
+      color: #fff;
+      text-align: center; 
+      margin: auto;
+    }
+    .delete{
+      color: red;
+      cursor: pointer;
+    }
+</style>
+<html>

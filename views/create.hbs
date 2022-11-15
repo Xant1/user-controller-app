@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавление пользователя</title>
+    <meta charset="utf-8" />  
+</head>
+<body>
+    <h1>Добавление пользователя</h1>
+    <br>
+     <form method="POST">
+        <label>Имя</label><br>
+        <input name="name" class="field"/><br><br>
+        <label>Возраст</label><br>
+        <input name="age" type="number" class="field" min="1" max="110" /><br><br>
+        <input type="submit" value="Отправить" />
+     </form>
+     <br>
+     <a href="/">К списку пользователей</a>
+</body>
+<style>
+    a{
+      color: rgb(36, 192, 36);
+    }
+    *{
+      background-color: #212121;
+      color: #fff;
+      text-align: center; 
+      margin: auto;
+    }
+    .delete{
+      color: red;
+      cursor: pointer;
+    }
+    .field{
+      width:180px;
+    }
+    input{
+     background-color: #fff;
+     color: #000;
+     cursor: pointer;
+    }
+</style>
+<html>
