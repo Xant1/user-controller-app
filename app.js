@@ -1,8 +1,12 @@
+//import routes
+const createRouter = require('./routes/create.router');
+const addUserRouter = require('./routes/add.user.router');
+const indexRouter = require('./routes/index.router');
+const editRouter = require('./routes/edit.router');
+const deleteRouter = require('./routes/delete.user.router');
+
 const express = require('express');
 const app = express();
-
-const User = require('./models/userModel');
-
 const urlencodedParser = express.urlencoded({ extended: false });
 
 const PORT = 3333;
@@ -13,61 +17,15 @@ app.listen(PORT, function () {
   console.log(`the server is running on port ${PORT}`);
 });
 
-app.get('/', function (req, res) {
-  User.findAll({ raw: true })
-    .then((data) => {
-      res.render('index.hbs', {
-        users: data,
-      });
-    })
-    .catch((err) => console.log(err));
-});
-
-app.get('/create', function (req, res) {
-  res.render('create.hbs');
-});
-
-app.post('/create', urlencodedParser, function (req, res) {
-  if (!req.body) return res.sendStatus(400);
-
-  const username = req.body.name;
-  const userage = req.body.age;
-  User.create({ name: username, age: userage })
-    .then(() => {
-      res.redirect('/');
-    })
-    .catch((err) => console.log(err));
-});
-
-app.get('/edit/:id', function (req, res) {
-  const userid = req.params.id;
-  User.findAll({ where: { id: userid }, raw: true })
-    .then((data) => {
-      res.render('edit.hbs', {
-        user: data[0],
-      });
-    })
-    .catch((err) => console.log(err));
-});
-
-app.post('/edit', urlencodedParser, function (req, res) {
-  if (!req.body) return res.sendStatus(400);
-
-  const username = req.body.name;
-  const userage = req.body.age;
-  const userid = req.body.id;
-  User.update({ name: username, age: userage }, { where: { id: userid } })
-    .then(() => {
-      res.redirect('/');
-    })
-    .catch((err) => console.log(err));
-});
-
-app.post('/delete/:id', function (req, res) {
-  const userid = req.params.id;
-  User.destroy({ where: { id: userid } })
-    .then(() => {
-      res.redirect('/');
-    })
-    .catch((err) => console.log(err));
-});
+//get all users in home page
+app.get('/', indexRouter);
+//get create page
+app.get('/create', createRouter);
+//add new user
+app.post('/create', urlencodedParser, addUserRouter);
+//get edit page
+app.get('/edit/:id', editRouter);
+//edit the user
+app.post('/edit', urlencodedParser, editRouter);
+//delete a user
+app.post('/delete/:id', deleteRouter);
