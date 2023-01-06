@@ -1,4 +1,4 @@
-//import routes
+require('dotenv').config()
 const createRouter = require('./routes/create.router');
 const addUserRouter = require('./routes/add.user.router');
 const indexRouter = require('./routes/index.router');
@@ -9,7 +9,7 @@ const express = require('express');
 const app = express();
 const urlencodedParser = express.urlencoded({ extended: false });
 
-const PORT = 3333;
+const PORT = env.process.PORT || 3333;
 
 app.set('view engine', 'hbs');
 
